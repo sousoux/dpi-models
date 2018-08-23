@@ -3,8 +3,8 @@ BUILD_DIR=build
 
 CFLAGS += -std=gnu++11 -MMD -MP -O3 -g
 
-CFLAGS += -I$(PULP_SDK_HOME)/install/ws/include -fPIC
-LDFLAGS += -L$(PULP_SDK_HOME)/install/ws/lib -fPIC -shared -O3 -g -ljson
+CFLAGS += -I$(PULP_SDK_WS_INSTALL)/include -fPIC
+LDFLAGS += -L$(PULP_SDK_WS_INSTALL)/lib -fPIC -shared -O3 -g -ljson
 
 DPI_CFLAGS += $(CFLAGS) -DUSE_DPI
 DPI_LDFLAGS += $(LDFLAGS)  -Wl,-export-dynamic -ldl -rdynamic -lpulpperiph
@@ -56,18 +56,18 @@ clean:
 	make -C models clean
 
 
-$(PULP_SDK_HOME)/install/ws/lib/libpulpdpi.so: $(BUILD_DIR)/libpulpdpi.so
+$(PULP_SDK_WS_INSTALL)/lib/libpulpdpi.so: $(BUILD_DIR)/libpulpdpi.so
 	install -D $< $@
 
-$(PULP_SDK_HOME)/install/ws/lib/libpulpperiph.so: $(BUILD_DIR)/libpulpperiph.so
+$(PULP_SDK_WS_INSTALL)/lib/libpulpperiph.so: $(BUILD_DIR)/libpulpperiph.so
 	install -D $< $@
 
 $(PULP_SDK_INSTALL)/rules/dpi_rules.mk: dpi_rules.mk
 	install -D $< $@
 
 
-INSTALL_TARGETS += $(PULP_SDK_HOME)/install/ws/lib/libpulpperiph.so
-INSTALL_TARGETS += $(PULP_SDK_HOME)/install/ws/lib/libpulpdpi.so
+INSTALL_TARGETS += $(PULP_SDK_WS_INSTALL)/lib/libpulpperiph.so
+INSTALL_TARGETS += $(PULP_SDK_WS_INSTALL)/lib/libpulpdpi.so
 
 HEADER_FILES += $(shell find include -name *.hpp)
 HEADER_FILES += $(shell find include -name *.h)
